@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml"> 
+     <ui:define name="bodyContent">
+          <title>Ejemplo de JavaMails con GlassFihs 4.1</title>
+        <h:form id="pollfrm1">
+            <p:outputLabel value="Fecha: "/>
+            <p:outputLabel id="tiempo" value="#{serverTimeBean.time}"/>
+            <p:poll interval="1" listener="#{serverTimeBean.updateTime()}" 
+                    update="tiempo"/>
+      </h:form>
+         <h:form id="emailSessionForm">
+             <div style="text-align: center">
+            <div style="text-align: center">
+                <h1>Envio Personalizado de Email</h1>
+                <h3>Aplicacion Web con <span style="color: red"> JAVA EE </span> 
+                    Utilizando la API <span style="color: red"> JavaMail </span> 
+                    implementado el Framework 
+                    <span style="color: red">JSF</span> con el servidor 
+                    <span style="color: red">GlassFish</span>
+                </h3>
+                <h3>
+                    <span style="color: red">Facelets</span> 
+                    es el lenguaje utilizado</h3>
+           </div>
+            <p:panel header="Formulario de Email">	                
+                <h:panelGrid columns="3" >
+                
+                <p:outputLabel value="PARA: "/>
+                     <p:inputText value="#{mailBeans.to}" required="true"
+                                   validator="#{mailBeans.validateEmail}"
+                                   label="to" 
+                                   id="to"
+                                  size="50">   
+                     </p:inputText>
+                     <p:message for="to" style="color:red"/> 
+                <p:outputLabel value="ASUNTO: "/>
+                     <p:inputText value="#{mailBeans.subject}"  
+                                     validatorMessage="Requiere el Asunto"
+                                     label="subject" 
+                                     id="subject"
+                                     size="50">                     
+                     </p:inputText>
+                     <p:message for="subject" style="color:red"/> 
+                <p:outputLabel value="MENSAJE: "/>
+                     <p:inputTextarea id="descr" cols="52" rows="5"
+                                         value="#{mailBeans.descr}">                     
+                     </p:inputTextarea>
+                     <p:message style="color:red" for="descr"/>
+                 <p:commandButton action="#{mailBeans.submitEmail}" value="Enviar"
+                                 id="submit"/>
+                    </h:panelGrid>  
+                 </p:panel>
+            </div>
+         </h:form>
+     </ui:define>
+</ui:composition>

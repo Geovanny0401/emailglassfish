@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml"> 
+    
+    <ui:define name="bodyContent">
+        <h:form id="pollfrm1">
+            <p:outputLabel value="Fecha: "/>
+            <p:outputLabel id="tiempo" value="#{serverTimeBean.time}"/>
+            <p:poll interval="1" listener="#{serverTimeBean.updateTime()}" update="tiempo"/>
+        </h:form>
+        <h:form id="emailOkForm">
+           <div style="text-align: center">
+                <h1>Envio Personalizado de Email</h1>
+                <h3>Aplicacion Web con <span style="color: red"> JAVA EE </span> Utilizando la API <span style="color: red"> JavaMail </span> implementado el Framework <span style="color: red">JSF</span></h3>
+                <h3><span style="color: red">Facelets</span> es el lenguaje utilizado</h3>
+           </div>
+            <hr></hr>
+          <div align="center" style="margin-top:50px">
+            <h1>
+                Email enviando exitosamente!!!
+                <p:panel>
+                    <p:panelGrid columns="2">
+                        <p:commandButton id="atras" value="Atras" action="index"/>
+                    </p:panelGrid>
+                </p:panel>
+                
+            </h1>
+        </div>
+            
+        </h:form>
+    </ui:define>
+</ui:composition>

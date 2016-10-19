@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml"> 
+    <ui:define name="bodyContent">
+        <h:form id="pollfrm1">
+            <p:outputLabel value="Fecha: "/>
+            <p:outputLabel id="tiempo" value="#{serverTimeBean.time}"/>
+            <p:poll interval="1" listener="#{serverTimeBean.updateTime()}" 
+                    update="tiempo"/>
+      </h:form>
+      <h:form id="emailForm">
+          <p:messages id="messages" severity="error" showDetail="true" 
+                        autoUpdate="true"/>  
+         <div style="text-align: center">
+            <div style="text-align: center">
+                <h1>Envio Personalizado de Email</h1>
+                <h3>Aplicacion Web con <span style="color: red"> JAVA EE </span> 
+                    Utilizando la API <span style="color: red"> JavaMail </span> 
+                    implementado el Framework 
+                    <span style="color: red">JSF</span></h3>
+                <h3>
+                    <span style="color: red">Facelets</span> 
+                    es el lenguaje utilizado</h3>
+           </div>
+              <p:panel header="Formulario de Email">	                
+                <h:panelGrid columns="3" >
+                <p:outputLabel value="DE: "/>
+                     <p:inputText value="#{emailJSFManagedBean.from}" 
+                                validator="#{emailJSFManagedBean.validateEmail}"
+                                label="from" 
+                                id="from"
+                                size="50">
+                     </p:inputText>
+                     <p:message for="from" style="color:red"/> 
+                <p:outputLabel value="PARA: "/>
+                     <p:inputText value="#{emailJSFManagedBean.to}" required="true"
+                                   validator="#{emailJSFManagedBean.validateEmail}"
+                                   label="to" 
+                                   id="to"
+                                  size="50">   
+                     </p:inputText>
+                     <p:message for="to" style="color:red"/> 
+                <p:outputLabel value="ASUNTO: "/>
+                     <p:inputText value="#{emailJSFManagedBean.subject}"  
+                                     validatorMessage="Requiere el Asunto"
+                                     label="subject" 
+                                     id="subject"
+                                     size="50">                     
+                     </p:inputText>
+                     <p:message for="subject" style="color:red"/> 
+                <p:outputLabel value="SMTP: "/>
+                     <p:inputText id="smtp" 
+                                     validatorMessage="SMTP requiere una direccion IP"
+                                     value="#{emailJSFManagedBean.smtp}"
+                                     size="50"> 
+                            <f:validateRequired for="smtp"/>
+                     </p:inputText>
+                     <p:message style="color:red" for="smtp"/>
+                <p:outputLabel value="USUARIO: "/>
+                     <p:inputText id="usuario" value="#{emailJSFManagedBean.username}"
+                                     size="50"> 
+                     </p:inputText>                  
+                     <p:message style="color:red" for="usuario"/>
+                <p:outputLabel value="PASSWORD: "/>
+                     <p:password id="password" value="#{emailJSFManagedBean.password}"
+                                    size="50">
+                     </p:password>
+                     <p:message style="color:red" for="password"/>
+                <p:outputLabel value="PUERTO: "/>
+                     <p:inputText id="puerto" value="#{emailJSFManagedBean.port}"
+                                     size="50" style="margin-rigth:50px"> 
+                     </p:inputText>                  
+                     <p:message style="color:red" for="puerto"/>
+                <p:outputLabel value="MENSAJE: "/>
+                     <p:inputTextarea id="descr" cols="50" rows="5"
+                                         value="#{emailJSFManagedBean.descr}">                     
+                     </p:inputTextarea>
+                     <p:message style="color:red" for="descr"/>
+                     <p:commandButton action="#{emailJSFManagedBean.submitEmail}" 
+                                        value="Enviar" id="submit"/>                    
+                    </h:panelGrid>                
+                </p:panel>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
